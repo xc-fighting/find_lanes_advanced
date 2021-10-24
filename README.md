@@ -1,5 +1,4 @@
 # Advanced Lane Detection
-![annotated](output_images/annotated_test2.png)
 ## Overview
 Detect lanes using computer vision techniques. This project is part of the [Udacity Self-Driving Car Nanodegree](https://www.udacity.com/drive), and much of the code is leveraged from the lecture notes.
 
@@ -17,7 +16,7 @@ The following steps were performed for lane detection:
 [Here](https://youtu.be/lSd_WY1bqLw) is the final video output on Youtube. The same video is 'out.mp4' in this repo. The original video is 'project_video.mp4'.
 
 ## Dependencies
-* Python 3.5
+* Python 3
 * Numpy
 * OpenCV-Python
 * Matplotlib
@@ -40,19 +39,19 @@ To illustrate, the following is the calibration image 'camera_cal/calibration5.j
 ![calibration5](camera_cal/calibration5.jpg)
 
 Here is the same image undistored via camera calibration:
-![undist_cal5](output_images/undistort_calibration.png)
+![undist_cal5](img/undistort_calibration.png)
 
 The final calibration matrices are saved in the pickle file 'calibrate_camera.p'
 
 ## Lane detection pipeline
 The following describes and illustrates the steps involved in the lane detection pipeline. For illustration, below is the original image we will use as an example:
 
-![orig](test_images/test2.jpg)
+![orig](img/test_calibration_before.jpg)
 
 ### Undistort image
 Using the camera calibration matrices in 'calibrate_camera.p', I undistort the input image. Below is the example image above, undistorted:
 
-![undist](output_images/undistort_test2.png)
+![undist](img/test_calibration_after.png)
 
 The code to perform camera calibration is in 'calibrate_camera.py'. For all images in 'test_images/\*.jpg', the undistorted version of that image is saved in 'output_images/undistort_\*.png'.
 
