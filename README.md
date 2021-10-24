@@ -66,9 +66,9 @@ The next step is to create a thresholded binary image, taking the undistorted im
 
 Here is the example image, transformed into a binary image by combining the above thresholded binary filters:
 
-![binary](output_images/binary_test2.png)
+![binary](img/binary_test2.png)
 
-The code to generate the thresholded binary image is in 'combined_thresh.py', in particular the function `combined_thresh()`. For all images in 'test_images/\*.jpg', the thresholded binary version of that image is saved in 'output_images/binary_\*.png'.
+
 
 ### Perspective transform
 Given the thresholded binary image, the next step is to perform a perspective transform. The goal is to transform the image such that we get a "bird's eye view" of the lane, which enables us to fit a curved line to the lane lines (e.g. polynomial fit). Another thing this accomplishes is to "crop" an area of the original image that is most likely to have the lane line pixels.
@@ -77,9 +77,9 @@ To accomplish the perspective transform, I use OpenCV's `getPerspectiveTransform
 
 Here is the example image, after applying perspective transform:
 
-![warped](output_images/warped_test2.png)
+![warped](img/warped_test2.png)
 
-The code to perform perspective transform is in 'perspective_transform.py', in particular the function `perspective_transform()`. For all images in 'test_images/\*.jpg', the warped version of that image (i.e. post-perspective-transform) is saved in 'output_images/warped_\*.png'.
+
 
 ### Polynomial fit
 Given the warped binary image from the previous step, I now fit a 2nd order polynomial to both left and right lane lines. In particular, I perform the following:
@@ -100,7 +100,7 @@ Another enhancement to exploit the temporal correlation is to smooth-out the pol
 
 Below is an illustration of the output of the polynomial fit, for our original example image. For all images in 'test_images/\*.jpg', the polynomial-fit-annotated version of that image is saved in 'output_images/polyfit_\*.png'.
 
-![polyfit](output_images/polyfit_test2.png)
+![polyfit](img/polyfit_test2.png)
 
 ### Radius of curvature
 Given the polynomial fit for the left and right lane lines, I calculated the radius of curvature for each line according to formulas presented [here](http://www.intmath.com/applications-differentiation/8-radius-curvature.php). I also converted the distance units from pixels to meters, assuming 30 meters per 720 pixels in the vertical direction, and 3.7 meters per 700 pixels in the horizontal direction.
@@ -129,7 +129,7 @@ The code to perform the above is in the function `final_viz()` in 'line_fit.py'.
 
 Below is the final annotated version of our original image. For all images in 'test_images/\*.jpg', the final annotated version of that image is saved in 'output_images/annotated_\*.png'.
 
-![annotated](output_images/annotated_test2.png)
+![annotated](img/annotated_test2.png)
 
 ## Discussion
 This is an initial version of advanced computer-vision-based lane finding. There are multiple scenarios where this lane finder would not work. For example, the Udacity challenge video includes roads with cracks which could be mistaken as lane lines (see 'challenge_video.mp4'). Also, it is possible that other vehicles in front would trick the lane finder into thinking it was part of the lane. More work can be done to make the lane detector more robust, e.g. [deep-learning-based semantic segmentation](https://arxiv.org/pdf/1605.06211.pdf) to find pixels that are likely to be lane markers (then performing polyfit on only those pixels).
