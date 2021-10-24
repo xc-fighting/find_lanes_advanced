@@ -102,9 +102,9 @@ if __name__ == '__main__':
 
     ret, mtx, dist, rvecs, tvecs = calibrate_camera(calib_images_dir='camera_cal')
 
-    img = cv2.imread('test_images/test2.jpg')
+    img = cv2.imread('camera_cal/calibration5.jpg')
 
     img_undistorted = undistort(img, mtx, dist)
 
-    cv2.imwrite('img/test_calibration_before.jpg', img)
-    cv2.imwrite('img/test_calibration_after.jpg', img_undistorted)
+    cv2.imwrite('img/chessboard_calibration_before.jpg', img)
+    cv2.imwrite('img/chessboard_calibration_after.jpg', img_undistorted)
