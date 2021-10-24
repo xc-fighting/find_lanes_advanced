@@ -36,13 +36,13 @@ I applied this distortion correction to the test image using the `cv2.undistort(
   <tr>
     <th>
       <p align="center">
-           <img src="./img/calibration_before.jpg" alt="calibration_before" width="60%" height="60%">
+           <img src="./img/chessboard_calibration_before.jpg" alt="calibration_before" width="60%" height="60%">
            <br>Chessboard image before calibration
       </p>
     </th>
     <th>
       <p align="center">
-           <img src="./img/calibration_after.jpg" alt="calibration_after" width="60%" height="60%">
+           <img src="./img/chessboard_calibration_after.jpg" alt="calibration_after" width="60%" height="60%">
            <br>Chessboard image after calibration
       </p>
     </th>
