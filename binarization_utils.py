@@ -4,14 +4,12 @@ import glob
 import matplotlib.pyplot as plt
 
 
-# selected threshold to highlight yellow lines
-yellow_HSV_th_min = np.array([0, 70, 70])
-yellow_HSV_th_max = np.array([50, 255, 255])
+
 
 
 def thresh_frame_in_HLS(frame, thresh=(170,255)):
     """
-    Threshold a color frame in HSV space
+    Threshold a color frame in HLS space
     """
     hls = cv2.cvtColor(frame, cv2.COLOR_BGR2HLS)
     s_channel = hls[:,:,2]
@@ -61,7 +59,7 @@ def binarize(img, verbose=True):
 
     binary = np.zeros(shape=(h, w), dtype=np.uint8)
 
-    # highlight yellow lines by threshold in HSV color space
+    # highlight yellow lines by threshold in HLS color space
     HLS_mask = thresh_frame_in_HLS(img)
     binary = np.logical_or(binary, HLS_mask)
 
