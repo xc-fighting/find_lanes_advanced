@@ -1,10 +1,5 @@
 # Project 2 - Advanced Lane Finding
 
-<p align="center">
- <a href="https://www.youtube.com/watch?v=g5BhDtoheE4"><img src="./img/overview.gif" alt="Overview" width="50%" height="50%"></a>
- <br>Qualitative results. (click for full video)
-</p>
-
 ---
 
 **Advanced Lane Finding Project**
