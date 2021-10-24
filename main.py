@@ -15,7 +15,7 @@ line_lt = Line(buffer_len=time_window)  # line on the left of the lane
 line_rt = Line(buffer_len=time_window)  # line on the right of the lane
 
 
-def prepare_out_frame(blend_on_road, line_lt, line_rt, offset_meter):
+def prepare_out_frame(blend_on_road,img_binary,img_birdeye,img_fit, line_lt, line_rt, offset_meter):
     """
      prepare the output frame
     """
@@ -25,7 +25,24 @@ def prepare_out_frame(blend_on_road, line_lt, line_rt, offset_meter):
     thumb_h, thumb_w = int(thumb_ratio * h), int(thumb_ratio * w)
 
     off_x, off_y = 20, 15
+    # add a gray rectangle to highlight the upper area
+    mask = blend_on_road.copy()
+    mask = cv2.rectangle(mask, pt1=(0, 0), pt2=(w, thumb_h+2*off_y), color=(0, 0, 0), thickness=cv2.FILLED)
+    blend_on_road = cv2.addWeighted(src1=mask, alpha=0.2, src2=blend_on_road, beta=0.8, gamma=0)
 
+    # add thumbnail of binary image
+    thumb_binary = cv2.resize(img_binary, dsize=(thumb_w, thumb_h))
+    thumb_binary = np.dstack([thumb_binary, thumb_binary, thumb_binary]) * 255
+    blend_on_road[off_y:thumb_h+off_y, off_x:off_x+thumb_w, :] = thumb_binary
+
+    # add thumbnail of bird's eye view
+    thumb_birdeye = cv2.resize(img_birdeye, dsize=(thumb_w, thumb_h))
+    thumb_birdeye = np.dstack([thumb_birdeye, thumb_birdeye, thumb_birdeye]) * 255
+    blend_on_road[off_y:thumb_h+off_y, 2*off_x+thumb_w:2*(off_x+thumb_w), :] = thumb_birdeye
+
+    # add thumbnail of bird's eye view (lane-line highlighted)
+    thumb_img_fit = cv2.resize(img_fit, dsize=(thumb_w, thumb_h))
+    blend_on_road[off_y:thumb_h+off_y, 3*off_x+2*thumb_w:3*(off_x+thumb_w), :] = thumb_img_fit
     # add text (curvature and offset info) on the upper right of the blend
     mean_curvature_meter = np.mean([line_lt.curvature_meter, line_rt.curvature_meter])
     font = cv2.FONT_HERSHEY_SIMPLEX
@@ -93,7 +110,7 @@ def process_pipeline(frame, keep_state=True):
     blend_on_road = draw_back_onto_the_road(img_undistorted, Minv, line_lt, line_rt, keep_state)
 
     # stitch on the top of final output images from different steps of the pipeline
-    blend_output = prepare_out_frame(blend_on_road, line_lt, line_rt, offset_meter)
+    blend_output = prepare_out_frame(blend_on_road,img_binary, img_birdeye, img_fit, line_lt, line_rt, offset_meter)
 
     processed_frames += 1
 
@@ -105,7 +122,7 @@ if __name__ == '__main__':
     # first things first: calibrate the camera
     ret, mtx, dist, rvecs, tvecs = calibrate_camera(calib_images_dir='camera_cal')
 
-    mode = 'images'
+    mode = 'video'
 
     if mode == 'video':
 

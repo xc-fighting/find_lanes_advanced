@@ -9,23 +9,15 @@ yellow_HSV_th_min = np.array([0, 70, 70])
 yellow_HSV_th_max = np.array([50, 255, 255])
 
 
-def thresh_frame_in_HSV(frame, min_values, max_values, verbose=False):
+def thresh_frame_in_HLS(frame, thresh=(170,255)):
     """
     Threshold a color frame in HSV space
     """
-    HSV = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-
-    min_th_ok = np.all(HSV > min_values, axis=2)
-    max_th_ok = np.all(HSV < max_values, axis=2)
-
-    out = np.logical_and(min_th_ok, max_th_ok)
-
-    if verbose:
-        plt.imshow(out, cmap='gray')
-        plt.show()
-
-    return out
-
+    hls = cv2.cvtColor(frame, cv2.COLOR_BGR2HLS)
+    s_channel = hls[:,:,2]
+    binary_output = np.zeros_like(s_channel)
+    binary_output[(s_channel > thresh[0]) & (s_channel <= thresh[1])] = 1
+    return binary_output
 
 def thresh_frame_sobel(frame, kernel_size):
     """
@@ -57,7 +49,7 @@ def get_binary_from_equalized_grayscale(frame):
     return th
 
 
-def binarize(img, verbose=False):
+def binarize(img, verbose=True):
     """
     Convert an input frame to a binary image which highlight as most as possible the lane-lines.
 
@@ -70,8 +62,8 @@ def binarize(img, verbose=False):
     binary = np.zeros(shape=(h, w), dtype=np.uint8)
 
     # highlight yellow lines by threshold in HSV color space
-    HSV_yellow_mask = thresh_frame_in_HSV(img, yellow_HSV_th_min, yellow_HSV_th_max, verbose=False)
-    binary = np.logical_or(binary, HSV_yellow_mask)
+    HLS_mask = thresh_frame_in_HLS(img)
+    binary = np.logical_or(binary, HLS_mask)
 
     # highlight white lines by thresholding the equalized frame
     eq_white_mask = get_binary_from_equalized_grayscale(img)
