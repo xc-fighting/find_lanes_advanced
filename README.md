@@ -13,7 +13,6 @@ The following steps were performed for lane detection:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
-[Here](https://youtu.be/lSd_WY1bqLw) is the final video output on Youtube. The same video is 'out.mp4' in this repo. The original video is 'project_video.mp4'.
 
 ## Dependencies
 * Python 3
@@ -51,9 +50,9 @@ The following describes and illustrates the steps involved in the lane detection
 ### Undistort image
 Using the camera calibration matrices in 'calibrate_camera.p', I undistort the input image. Below is the example image above, undistorted:
 
-![undist](img/test_calibration_after.png)
+![undist](img/test_calibration_after.jpg)
 
-The code to perform camera calibration is in 'calibrate_camera.py'. For all images in 'test_images/\*.jpg', the undistorted version of that image is saved in 'output_images/undistort_\*.png'.
+The code to perform camera calibration is in 'calibrate_camera.py'. 
 
 ### Thresholded binary image
 The next step is to create a thresholded binary image, taking the undistorted image as input. The goal is to identify pixels that are likely to be part of the lane lines. In particular, I perform the following:
