@@ -98,8 +98,6 @@ Given the polynomial fit calculated from the previous video frame, one performan
 
 Another enhancement to exploit the temporal correlation is to smooth-out the polynomial fit parameters. The benefit to doing so would be to make the detector more robust to noisy input. I used a simple moving average of the polynomial coefficients (3 values per lane line) for the most recent 5 video frames. The code to perform this smoothing is in the function `add_fit()` of the class `Line` in the file 'Line.py'. The `Line` class was used as a helper for this smoothing function specifically, and `Line` instances are global objects in 'line_fit.py'.
 
-Below is an illustration of the output of the polynomial fit, for our original example image. For all images in 'test_images/\*.jpg', the polynomial-fit-annotated version of that image is saved in 'output_images/polyfit_\*.png'.
-
 ![polyfit](img/polyfit_test2.png)
 
 ### Radius of curvature
@@ -127,7 +125,6 @@ Given all the above, we can annotate the original image with the lane area, and 
 
 The code to perform the above is in the function `final_viz()` in 'line_fit.py'.
 
-Below is the final annotated version of our original image. For all images in 'test_images/\*.jpg', the final annotated version of that image is saved in 'output_images/annotated_\*.png'.
 
 ![annotated](img/annotated_test2.png)
 
