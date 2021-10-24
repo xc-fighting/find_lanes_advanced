@@ -1,4 +1,4 @@
-# Project 4 - Advanced Lane Finding
+# Project 2 - Advanced Lane Finding
 
 <p align="center">
  <a href="https://www.youtube.com/watch?v=g5BhDtoheE4"><img src="./img/overview.gif" alt="Overview" width="50%" height="50%"></a>
