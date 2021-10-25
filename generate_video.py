@@ -24,7 +24,7 @@ left_lane_inds, right_lane_inds = None, None  # for calculating curvature
 
 
 # MoviePy video annotation will call this function
-def annotate_image(img_in):
+def process_image(img_in):
 	"""
 	Annotate the input image with lane line markings
 	Returns annotated image
@@ -92,22 +92,13 @@ def annotate_image(img_in):
 	return result
 
 
-def annotate_video(input_file, output_file):
+def output_video(input_file, output_file):
 	""" Given input_file video, save annotated video to output_file """
 	video = VideoFileClip(input_file)
-	annotated_video = video.fl_image(annotate_image)
-	annotated_video.write_videofile(output_file, audio=False)
+	final_video = video.fl_image(process_image)
+	final_video.write_videofile(output_file, audio=False)
 
 
 if __name__ == '__main__':
 	# Annotate the video
-	annotate_video('project_video.mp4', 'out.mp4')
-
-	# Show example annotated image on screen for sanity check
-	img_file = 'test_images/test2.jpg'
-	img = mpimg.imread(img_file)
-	result = annotate_image(img)
-	result = annotate_image(img)
-	result = annotate_image(img)
-	plt.imshow(result)
-	plt.show()
+	output_video('project_video.mp4', 'out.mp4')
