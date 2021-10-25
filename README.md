@@ -51,7 +51,7 @@ Using the camera calibration matrices in 'calibrate_camera.p', I undistort the i
 
 ![undist](img/test_calibration_after.jpg)
 
-The code to perform camera calibration is in 'calibrate_camera.py'. 
+The code to perform camera calibration is in 'camera_calibration.py'. 
 
 ### Thresholded binary image
 The next step is to create a thresholded binary image, taking the undistorted image as input. The goal is to identify pixels that are likely to be part of the lane lines. In particular, I perform the following:
