@@ -119,4 +119,4 @@ The code to perform the above is in the function `final_viz()` in 'line_fit.py'.
 ![annotated](img/annotated_test2.png)
 
 ## Discussion
-
+Improvement: use the main.py to gether the pipe line together
