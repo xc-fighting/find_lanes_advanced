@@ -27,17 +27,16 @@ Run `python line_fit_video.py`. This will take the raw video file at 'project_vi
 To run the lane detector on arbitrary video files, update the last few lines of 'line_fit_video.py'.
 
 ## Camera calibration
-The camera was calibrated using the chessboard images in 'camera_cal/*.jpg'. The following steps were performed for each calibration image:
+The camera was calibrated using the chessboard images in 'camera_cal/*.jpg'. The steps are like this:
 
-* Convert to grayscale
-* Find chessboard corners with OpenCV's `findChessboardCorners()` function, assuming a 9x6 board
+* use cv2 convert color to convert a color picture into gray picutre
+* use`findChessboardCorners()` function, find the corners of 9*6 board
 
-After the above steps were executed for all calibration images, I used OpenCV's `calibrateCamera()` function to calculate the distortion matrices. Using the distortion matrices, I undistort images using OpenCV's `undistort()` function.
-
-To illustrate, the following is the calibration image 'camera_cal/calibration5.jpg':
+After those steps, use calibrate camera function to calculate the distortion matrices. 
+before:
 ![calibration5](camera_cal/calibration5.jpg)
 
-Here is the same image undistored via camera calibration:
+after undistorted:
 ![undist_cal5](img/undistort_calibration.png)
 
 The final calibration matrices are saved in the pickle file 'calibrate_camera.p'
@@ -129,4 +128,4 @@ The code to perform the above is in the function `final_viz()` in 'line_fit.py'.
 ![annotated](img/annotated_test2.png)
 
 ## Discussion
-This is an initial version of advanced computer-vision-based lane finding. There are multiple scenarios where this lane finder would not work. For example, the Udacity challenge video includes roads with cracks which could be mistaken as lane lines (see 'challenge_video.mp4'). Also, it is possible that other vehicles in front would trick the lane finder into thinking it was part of the lane. More work can be done to make the lane detector more robust, e.g. [deep-learning-based semantic segmentation](https://arxiv.org/pdf/1605.06211.pdf) to find pixels that are likely to be lane markers (then performing polyfit on only those pixels).
+
